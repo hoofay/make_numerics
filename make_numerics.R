@@ -5,7 +5,7 @@
 
 library(dplyr)
 
-make_numerics <- function(df,col_name,target_name,output = 'rank',convert=FALSE){
+make_numerics <- function(df,col_name,target_name,output = 'rank',convert_ind=FALSE){
   ### convert character / factored columns to scaled numerics
   
   mydf <- df
@@ -16,7 +16,7 @@ make_numerics <- function(df,col_name,target_name,output = 'rank',convert=FALSE)
     summarise_(s = lazyeval::interp(~mean(a,na.rm = TRUE), a = as.name(target_name))) %>% 
     mutate(r = (rank(s)-1)/(length(unique(mydf[,col_name]))-1)) %>% arrange(r)
   
-  if(convert==TRUE){
+  if(convert_ind==TRUE){
     
     return(convert)
   
