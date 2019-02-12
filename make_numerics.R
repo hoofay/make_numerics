@@ -1,10 +1,26 @@
-# author: daniel hough
-# filename: make_numerics.R
-# date: 2018-05-13
+
 # dependencies: dplyr, lazyeval
 
 library(dplyr)
+library(lazyeval)
 
+#' make_numerics.R
+#' converts a character vector of a dataset into a scaled numeric
+#'
+#' @param df target dataframe
+#' @param col_name column for conversion
+#' @param target_name y variable used for scaling 
+#' @param output 'rank' or 'value'. If rank, then scaled based on rank of target. If 'value' scaled based on the value of target variable.
+#' @param convert_ind if TRUE the conversion is returned rather than the dataframe
+#'
+#' @return if convert_ind = FALSE then the dataframe is returned with col_name as a numeric.
+#' if convert_ind = TRUE the conversion from categorical to numeric is returned, as a dataframe.
+#' @export
+#'
+#' @examples
+#' md <- data.frame(result=rnorm(8),text_var = c('d','da','d','dan','dan','da','d',NA)) 
+#' make_numerics(md,'text_var','result','value') 
+#' make_numerics(md,'text_var','result','rank')
 make_numerics <- function(df,col_name,target_name,output = 'rank',convert_ind=FALSE){
   ### convert character / factored columns to scaled numerics
   
@@ -38,17 +54,4 @@ make_numerics <- function(df,col_name,target_name,output = 'rank',convert_ind=FA
     return(mydf)
   }
 }
-
-# example
-md <- data.frame(result=rnorm(8),text_var = c('d','da','d','dan','dan','da','d',NA))
-
-make_numerics(md,'text_var','result','value')
-
-make_numerics(md,'text_var','result','rank')
-
-
-
-
-
-
 
